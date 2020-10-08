@@ -9,8 +9,9 @@ Cell** cellMatrix;
 bool** priorityQMatrix; //check xem cell nao da duoc push vao priority queue
 Pos S;
 Pos E;
-Cell priorityQ[100000];
+Cell* priorityQ;
 int qS = 0, qE = -1;
+int pushi = 0;
 //Functions
 float calH(Cell c) {
 	return (float)sqrt(pow(c.pos.x - E.x, 2) + pow(c.pos.y - E.y, 2));
@@ -28,6 +29,7 @@ void pushQ(Cell c) {
 		else
 			break;
 	}
+	//cout << ++pushi << " ";
 }
 Cell popQ() {
 	qS++;
@@ -38,6 +40,7 @@ bool qEmpty() {
 }
 
 void init() {
+	priorityQ = new Cell[10000000];
 	cellMatrix = new Cell * [HEIGHT];
 	priorityQMatrix = new bool* [HEIGHT];
 	for (int i = 0; i < HEIGHT; i++) {  //init vi tri tuong ung cho tung cell
@@ -89,10 +92,10 @@ void Expand(int** matrix) {
 
 void getResult(Pos c, int** matrix) {
 	//tu cell cuoi cung lay parent cua parent... (de quy) len lai cell dau
-	matrix[c.y][c.x] = 2;
-	if (!(c.x == S.x && c.y == S.y))
-		getResult(cellMatrix[c.y][c.x].parentPos, matrix);
-
+	while (!(c.x == S.x && c.y == S.y)) {
+		matrix[c.y][c.x] = 2;
+		c = cellMatrix[c.y][c.x].parentPos;
+	}
 }
 
 //0 can go, 1 can't go, 2 way
@@ -113,7 +116,6 @@ bool SolveMaze(int** input, int**& result, int h, int w, Pos s, Pos e) {
 		if (qEmpty()) 
 			solveResult = false;
 	}
-
 	if (solveResult) {
 		getResult(cellMatrix[E.y][E.x].pos, input);
 
@@ -132,6 +134,6 @@ bool SolveMaze(int** input, int**& result, int h, int w, Pos s, Pos e) {
 	for (int i = 0; i < HEIGHT; i++)
 		delete[] priorityQMatrix[i];
 	delete[] priorityQMatrix;
-
+	delete priorityQ;
 	return solveResult;
 }

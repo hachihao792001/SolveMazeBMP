@@ -69,9 +69,9 @@ void TurnPixelArrayToMazeMatrix(BMPFile bmp, int**& result, int& imgWidth, int& 
 		result[i] = new int[imgWidth];
 		for (int j = 0; j < imgWidth; j++) {
 			//white
-			if (bmp.pixelArray.pixels[i][j].red >= 130 &&
-				bmp.pixelArray.pixels[i][j].green >= 130 &&
-				bmp.pixelArray.pixels[i][j].blue >= 130)
+			if (bmp.pixelArray.pixels[i][j].red >= 180 &&
+				bmp.pixelArray.pixels[i][j].green >= 180 &&
+				bmp.pixelArray.pixels[i][j].blue >= 180)
 				result[i][j] = 0;
 			//red
 			else if (bmp.pixelArray.pixels[i][j].red >= 200 &&
@@ -88,9 +88,9 @@ void TurnPixelArrayToMazeMatrix(BMPFile bmp, int**& result, int& imgWidth, int& 
 				S = Pos{ i,j };
 			}
 			//black
-			else if (bmp.pixelArray.pixels[i][j].red <= 120 &&
-				bmp.pixelArray.pixels[i][j].green <= 120 &&
-				bmp.pixelArray.pixels[i][j].blue <= 120)
+			else if (bmp.pixelArray.pixels[i][j].red < 180 &&
+				bmp.pixelArray.pixels[i][j].green < 180 &&
+				bmp.pixelArray.pixels[i][j].blue < 180)
 				result[i][j] = 1;
 			else
 				result[i][j] = 1;

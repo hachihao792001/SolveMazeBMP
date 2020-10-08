@@ -4,10 +4,18 @@
 int main(int argc, char** argv) {
 
 	bool saiCuPhap = false;
-	if (argc == 2) {
-
+	if (argc == 2 || argc == 1) {
+		string fileName;
 		BMPFile fileBMP;
-		if (!ReadBMP(argv[1], fileBMP))
+
+		if (argc == 1) {
+			cout << "Nhap duong dan file: ";
+			cin >> fileName;
+		}
+		else
+			fileName = argv[1];
+
+		if (!ReadBMP((char*)fileName.c_str(), fileBMP))
 			cout << "File khong phai la file BMP" << endl;
 		else {
 			int** mazeMatrix;
@@ -24,13 +32,16 @@ int main(int argc, char** argv) {
 					cout << endl;
 				}
 				*/
-				MakeResultBMP(argv[1], result, fileBMP, S, E);
+				MakeResultBMP(fileName, result, fileBMP, S, E);
+
 				for (int i = 0; i < imgh; i++)
 					delete[] result[i];
 				delete[] result;
-			}else
-				cout << "IMPOSSIBLE!" << endl;
 
+				cout << "PATH FOUND!" << endl;
+			}
+			else
+				cout << "IMPOSSIBLE!" << endl;
 			for (int i = 0; i < imgh; i++)
 				delete[] mazeMatrix[i];
 			delete[] mazeMatrix;
