@@ -11,7 +11,6 @@ Pos S;
 Pos E;
 Cell* priorityQ;
 int qS = 0, qE = -1;
-int pushi = 0;
 //Functions
 float calH(Cell c) {
 	return (float)sqrt(pow(c.pos.x - E.x, 2) + pow(c.pos.y - E.y, 2));
@@ -29,7 +28,6 @@ void pushQ(Cell c) {
 		else
 			break;
 	}
-	//cout << ++pushi << " ";
 }
 Cell popQ() {
 	qS++;
@@ -40,7 +38,7 @@ bool qEmpty() {
 }
 
 void init() {
-	priorityQ = new Cell[10000000];
+	priorityQ = new Cell[WIDTH*HEIGHT];
 	cellMatrix = new Cell * [HEIGHT];
 	priorityQMatrix = new bool* [HEIGHT];
 	for (int i = 0; i < HEIGHT; i++) {  //init vi tri tuong ung cho tung cell
@@ -79,7 +77,7 @@ void Expand(int** matrix) {
 						pushQ(cellMatrix[i][j]);
 					}
 					else {
-						if (cell.g + 1 + cell.h < cellMatrix[i][j].g + cellMatrix[i][j].h) {  //cell nao du da duoc expand thi van chua chac la toi uu, check lai duong di 1 lan nua
+						if (cell.g + 1< cellMatrix[i][j].g) {  //cell nao du da duoc expand thi van chua chac la toi uu, check lai duong di 1 lan nua
 							cellMatrix[i][j].g = cell.g + 1;
 							cellMatrix[i][j].parentPos = cell.pos;
 						}
@@ -92,6 +90,7 @@ void Expand(int** matrix) {
 
 void getResult(Pos c, int** matrix) {
 	//tu cell cuoi cung lay parent cua parent... (de quy) len lai cell dau
+	//don't use recursion!!!
 	while (!(c.x == S.x && c.y == S.y)) {
 		matrix[c.y][c.x] = 2;
 		c = cellMatrix[c.y][c.x].parentPos;
