@@ -18,6 +18,15 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AStar.cpp" />
+    <ClCompile Include="BMP.cpp" />
+    <ClCompile Include="MAIN.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AStar.h" />
+    <ClInclude Include="BMP.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{2D9FF02D-FABC-460E-B7A7-B2A3433A4DF5}</ProjectGuid>
@@ -122,15 +131,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="AStar.cpp" />
-    <ClCompile Include="BMP.cpp" />
-    <ClCompile Include="MAIN.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="AStar.h" />
-    <ClInclude Include="BMP.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

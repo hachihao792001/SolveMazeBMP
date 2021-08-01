@@ -1,6 +1,9 @@
 #include "AStar.h"
 #include "BMP.h"
 
+#include <cwchar>
+#include <windows.h>
+
 int main(int argc, char** argv) {
 
 	bool saiCuPhap = false;
@@ -34,6 +37,28 @@ int main(int argc, char** argv) {
 				*/
 				MakeResultBMP(fileName, result, fileBMP, S, E);
 
+				CONSOLE_FONT_INFOEX cfi;
+				cfi.cbSize = sizeof(cfi);
+				cfi.nFont = 0;
+				cfi.dwFontSize.X = 1000 / imgw;                   // Width of each character in the font
+				cfi.dwFontSize.Y = 1000 / imgh;	// Height
+				cfi.FontFamily = FF_DONTCARE;
+				cfi.FontWeight = FW_NORMAL;
+				wcscpy_s(cfi.FaceName, L"Consolas"); // Choose your font
+				SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &cfi);
+
+				for (int i = 0; i < imgh; i++) {
+					for (int j = 0; j < imgw; j++) {
+						if (result[i][j] == 0)
+							cout << "_";
+						else if (result[i][j] == 1)
+							cout << ".";
+						else
+							cout << "*";
+					}
+					cout << endl;
+				}
+
 				for (int i = 0; i < imgh; i++)
 					delete[] result[i];
 				delete[] result;
@@ -51,6 +76,6 @@ int main(int argc, char** argv) {
 		saiCuPhap = true;
 
 	if (saiCuPhap) cout << "Nhap sai cu phap" << endl;
-
+	system("pause");
 	return 0;
 }
